@@ -14,6 +14,11 @@ plugins {
     application
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -25,7 +30,11 @@ dependencies {
     implementation("com.google.guava:guava:26.0-jre")
 
     // Use JUnit test framework
-    testImplementation("junit:junit:4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
 }
 
 application {
