@@ -9,7 +9,7 @@
 plugins {
     // Apply the java plugin to add support for Java
     java
-
+    kotlin("jvm") version "1.3.50"
     // Apply the application plugin to add support for building an application
     application
 }
@@ -28,6 +28,7 @@ repositories {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation("com.google.guava:guava:26.0-jre")
+    implementation(kotlin("stdlib"))
 
     // Use JUnit test framework
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
