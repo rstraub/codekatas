@@ -32,6 +32,7 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
+    testImplementation("org.assertj:assertj-core:3.11.1")
 }
 
 tasks.named<Test>("test") {
