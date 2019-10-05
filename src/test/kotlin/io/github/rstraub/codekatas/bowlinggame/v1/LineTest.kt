@@ -34,8 +34,8 @@ internal class LineTest {
 
     @Test
     internal fun `should calculate a "-" as zero points`() {
-        line = Line("1-")
+        line = Line("9-9-9-9-9-9-9-9-9-9-")
 
-        assertThat(line.score).isEqualTo(1)
+        assertThat(line.score).isEqualTo(90)
     }
 }
