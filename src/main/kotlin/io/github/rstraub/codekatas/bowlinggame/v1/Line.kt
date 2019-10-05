@@ -5,7 +5,13 @@ class Line(scorecard: String) {
 
     init {
         score = scorecard.asSequence()
-                .map { it.toString().toInt() }
+                .map { it.toString() }
+                .map {
+                    when(it) {
+                        "-" -> 0
+                        else -> it.toInt()
+                    }
+                }
                 .reduce { acc, throwScore -> acc + throwScore }
     }
 }
