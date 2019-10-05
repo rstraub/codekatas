@@ -32,6 +32,8 @@ internal class LineTest {
         }
     }
 
+
+
     @Test
     internal fun `should calculate a "-" as zero points`() {
         line = Line("9-9-9-9-9-9-9-9-9-9-")
