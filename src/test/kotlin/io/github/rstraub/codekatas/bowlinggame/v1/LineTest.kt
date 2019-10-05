@@ -8,17 +8,27 @@ import org.junit.jupiter.api.Test
 internal class LineTest {
     private lateinit var line: Line
 
-    @Test
-    internal fun `should return the score for a single throw`() {
-        line = Line("1")
+    @Nested
+    inner class NumeralThrows {
+        @Test
+        internal fun `should return the score for a single throw`() {
+            line = Line("1")
 
-        assertThat(line.score).isEqualTo(1)
-    }
+            assertThat(line.score).isEqualTo(1)
+        }
 
-    @Test
-    internal fun `should return the score for two throws`() {
-        line = Line("12")
+        @Test
+        internal fun `should return the score for two throws`() {
+            line = Line("12")
 
-        assertThat(line.score).isEqualTo(3)
+            assertThat(line.score).isEqualTo(3)
+        }
+
+        @Test
+        internal fun `should calculate the score for a scorecard with only numeral throws`() {
+            line = Line("12345123451234512345")
+
+            assertThat(line.score).isEqualTo(60)
+        }
     }
 }
