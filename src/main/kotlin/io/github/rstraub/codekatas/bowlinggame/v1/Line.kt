@@ -6,15 +6,8 @@ class Line(scorecard: String) {
     init {
         score = scorecard.asSequence()
                 .map(Char::toString)
-                .map(this::throwToScore)
-                .reduce { acc, throwScore -> acc + throwScore }
-    }
-
-    private fun throwToScore(it: String): Int {
-        return when (it) {
-            "-" -> 0
-            "X" -> 10
-            else -> it.toInt()
-        }
+                .map(::Frame)
+                .map(Frame::score)
+                .reduce { acc, frameScore -> acc + frameScore }
     }
 }
