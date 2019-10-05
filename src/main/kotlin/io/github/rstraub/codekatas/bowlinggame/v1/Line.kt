@@ -13,6 +13,7 @@ class Line(scorecard: String) {
     private fun throwToScore(it: String): Int {
         return when (it) {
             "-" -> 0
+            "X" -> 10
             else -> it.toInt()
         }
     }

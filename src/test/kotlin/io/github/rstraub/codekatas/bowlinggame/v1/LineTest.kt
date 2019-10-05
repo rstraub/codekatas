@@ -32,7 +32,12 @@ internal class LineTest {
         }
     }
 
+    @Test
+    internal fun `a strike should be ten points`() {
+        line = Line("X")
 
+        assertThat(line.score).isEqualTo(10)
+    }
 
     @Test
     internal fun `should calculate a "-" as zero points`() {
