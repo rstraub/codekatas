@@ -8,29 +8,17 @@ import org.junit.jupiter.api.Test
 internal class LineTest {
     private lateinit var line: Line
 
-    @Nested
-    inner class RegularScorecard {
-        @BeforeEach
-        internal fun setUp() {
-            line = Line("12345123451234512345")
-        }
+    @Test
+    internal fun `should return the score for a single throw`() {
+        line = Line("1")
 
-        @Test
-        internal fun `should contain frames`() {
-            assertThat(line).isNotNull
-            assertThat(line.frames).isNotNull
-        }
-
-        @Test
-        internal fun `should have a frame for each two throws`() {
-            assertThat(line.frames.size).isEqualTo(10)
-        }
+        assertThat(line.score).isEqualTo(1)
     }
 
     @Test
-    internal fun `should have the the amount of frames for an incomplete scorecard`() {
+    internal fun `should return the score for two throws`() {
         line = Line("12")
 
-        assertThat(line.frames.size).isEqualTo(1)
+        assertThat(line.score).isEqualTo(3)
     }
 }
