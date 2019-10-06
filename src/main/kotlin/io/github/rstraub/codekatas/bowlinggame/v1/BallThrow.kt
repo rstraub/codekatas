@@ -1,7 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-class BallThrow(throwEntry: String) {
-    val score: Int
+class BallThrow(throwEntry: String): ScoreProvider {
+    override val score: Int
 
     init {
         score = throwToScore(throwEntry)

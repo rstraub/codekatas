@@ -1,7 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-class Line(scorecard: String) {
-    val score: Int
+class Line(scorecard: String): ScoreProvider {
+    override val score: Int
 
     init {
         score = scorecard.asSequence()

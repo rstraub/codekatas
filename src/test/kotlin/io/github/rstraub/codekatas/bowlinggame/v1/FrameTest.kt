@@ -12,4 +12,25 @@ internal class FrameTest {
 
         assertThat(frame.score).isEqualTo(2)
     }
+
+    @Test
+    internal fun `an empty frame should be zero`() {
+        frame = Frame("--")
+
+        assertThat(frame.score).isEqualTo(0)
+    }
+
+    @Test
+    internal fun `a strike should be ten points`() {
+        frame = Frame("X")
+
+        assertThat(frame.score).isEqualTo(10)
+    }
+
+    @Test
+    internal fun `a spare should be ten points in total`() {
+        frame = Frame("2/")
+
+        assertThat(frame.score).isEqualTo(10)
+    }
 }

@@ -1,7 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-class Frame(throwScores: String) {
-    val score: Int
+class Frame(throwScores: String): ScoreProvider {
+    override val score: Int
     private val ballThrows: List<BallThrow> = throwScoreToBallThrows(throwScores)
 
     init {
