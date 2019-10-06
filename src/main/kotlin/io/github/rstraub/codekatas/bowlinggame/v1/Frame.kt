@@ -5,8 +5,13 @@ class Frame(throwScores: String): ScoreProvider {
     private val ballThrows: List<BallThrow> = throwScoreToBallThrows(throwScores)
 
     init {
-        score = ballThrows.map { it.score }
+        val totalScore = ballThrows.map { it.score }
                 .sum()
+
+        score = if (totalScore > 10)
+            10
+        else
+            totalScore
     }
 
     private fun throwScoreToBallThrows(throwScores: String): List<BallThrow> {
