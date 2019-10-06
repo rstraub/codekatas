@@ -11,13 +11,6 @@ internal class LineTest {
     @Nested
     inner class NumeralThrows {
         @Test
-        internal fun `should return the score for a single throw`() {
-            line = Line("1")
-
-            assertThat(line.score).isEqualTo(1)
-        }
-
-        @Test
         internal fun `should return the score for two throws`() {
             line = Line("12")
 
@@ -30,13 +23,6 @@ internal class LineTest {
 
             assertThat(line.score).isEqualTo(60)
         }
-    }
-
-    @Test
-    internal fun `a strike should be ten points`() {
-        line = Line("X")
-
-        assertThat(line.score).isEqualTo(10)
     }
 
     @Test
