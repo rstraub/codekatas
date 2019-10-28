@@ -8,12 +8,15 @@ class Line(scorecard: String) {
     val score: Int
 
     init {
-        score = scorecard.split(BALL_THROW_DELIMITER)
-                .map(::BallThrow)
-                .map{ it.score }
+        score = scorecard
+                .split("|")
+                .flatMap {
+                    it.split(BALL_THROW_DELIMITER)
+                            .map(::BallThrow)
+                            .map { b -> b.score }
+                }
                 .sum()
     }
-
 
 
     private inner class BallThrow(throwScore: String) {
