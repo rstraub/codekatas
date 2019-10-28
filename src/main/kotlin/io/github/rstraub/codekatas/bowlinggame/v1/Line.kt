@@ -3,13 +3,14 @@ package io.github.rstraub.codekatas.bowlinggame.v1
 class Line(scorecard: String) {
     private companion object {
         private const val BALL_THROW_DELIMITER = ","
+        private const val FRAME_DELIMITER = "|"
     }
 
     val score: Int
 
     init {
         score = scorecard
-                .split("|")
+                .split(FRAME_DELIMITER)
                 .flatMap {
                     it.split(BALL_THROW_DELIMITER)
                             .map(::BallThrow)
