@@ -1,38 +1,35 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-class Line(scorecard: String) {
+class Line(scorecard: String): ScoreProvider {
     private companion object {
         private const val BALL_THROW_DELIMITER = ","
         private const val FRAME_DELIMITER = "|"
     }
 
-    val score: Int
+    override val score: Int
 
     init {
         score = scorecard
                 .split(FRAME_DELIMITER)
-                .flatMap {
-                    it.split(BALL_THROW_DELIMITER)
-                            .map(::BallThrow)
-                            .map { b -> b.score }
-                }
+                .map(::Frame)
+                .map(Frame::score)
                 .sum()
     }
 
 
-    private inner class BallThrow(throwScore: String) {
-        var score: Int
+    private inner class Frame(frameScore: String): ScoreProvider {
+        override val score: Int = frameScore.split(BALL_THROW_DELIMITER)
+                .map(::BallThrow)
+                .map(BallThrow::score)
+                .sum()
 
-        init {
-            score = calculateScore(throwScore)
-        }
+    }
 
-        private fun calculateScore(scorecard: String): Int {
-            return when (scorecard) {
-                "X" -> 10
-                "-" -> 0
-                else -> scorecard.toInt()
-            }
+    private inner class BallThrow(throwScore: String): ScoreProvider {
+        override val score: Int = when (throwScore) {
+            "X" -> 10
+            "-" -> 0
+            else -> throwScore.toInt()
         }
     }
 }

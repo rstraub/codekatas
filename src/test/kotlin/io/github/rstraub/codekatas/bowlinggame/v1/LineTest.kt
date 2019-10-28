@@ -4,24 +4,26 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class LineTest {
+    lateinit var line: Line
+
     @Test
     internal fun `a - should count as zero`() {
-        val line = Line("-,-|-,-")
+        line = Line("-,-|-,-")
 
         assertThat(line.score).isEqualTo(0)
     }
 
     @Test
     internal fun `a 'X' should count as ten`() {
-        val line = Line("X")
+        val scoreProvider = Line("X")
 
-        assertThat(line.score).isEqualTo(10)
+        assertThat(scoreProvider.score).isEqualTo(10)
     }
 
     @Test
     internal fun `a number should count as the number of pins hit`() {
-        val line = Line("1,2|1,2")
+        val scoreProvider = Line("1,2|1,2")
 
-        assertThat(line.score).isEqualTo(6)
+        assertThat(scoreProvider.score).isEqualTo(6)
     }
 }
