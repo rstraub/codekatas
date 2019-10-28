@@ -8,9 +8,9 @@ class LineTest {
 
     @Test
     internal fun `a - should count as zero`() {
-        line = Line("-,-|-,-")
+        line = Line("9,-|9,-|9,-|9,-|9,-|9,-|9,-|9,-|9,-|9,-")
 
-        assertThat(line.score).isEqualTo(0)
+        assertThat(line.score).isEqualTo(90)
     }
 
     @Test
@@ -18,12 +18,5 @@ class LineTest {
         val scoreProvider = Line("X")
 
         assertThat(scoreProvider.score).isEqualTo(10)
-    }
-
-    @Test
-    internal fun `a number should count as the number of pins hit`() {
-        val scoreProvider = Line("1,2|1,2")
-
-        assertThat(scoreProvider.score).isEqualTo(6)
     }
 }
