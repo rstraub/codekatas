@@ -1,34 +1,27 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-internal class LineTest {
-    private lateinit var line: Line
+class LineTest {
+    @Test
+    internal fun `a - should count as zero`() {
+        val line = Line("-")
 
-    @Nested
-    inner class NumeralThrows {
-        @Test
-        internal fun `should return the score for two throws`() {
-            line = Line("12")
-
-            assertThat(line.score).isEqualTo(3)
-        }
-
-        @Test
-        internal fun `should calculate the score for a scorecard with only numeral throws`() {
-            line = Line("12345123451234512345")
-
-            assertThat(line.score).isEqualTo(60)
-        }
+        assertThat(line.score).isEqualTo(0)
     }
 
     @Test
-    internal fun `should calculate a "-" as zero points`() {
-        line = Line("9-9-9-9-9-9-9-9-9-9-")
+    internal fun `a 'X' should count as ten`() {
+        val line = Line("X")
 
-        assertThat(line.score).isEqualTo(90)
+        assertThat(line.score).isEqualTo(10)
+    }
+
+    @Test
+    internal fun `a number should count as the number of pins hit`() {
+        val line = Line("1")
+
+        assertThat(line.score).isEqualTo(1)
     }
 }
