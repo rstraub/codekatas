@@ -1,7 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 class Line(scorecard: String) {
-    companion object {
+    private companion object {
         private const val BALL_THROW_DELIMITER = ","
     }
 
@@ -9,15 +9,26 @@ class Line(scorecard: String) {
 
     init {
         score = scorecard.split(BALL_THROW_DELIMITER)
-                .map(this::getThrowScore)
+                .map(::BallThrow)
+                .map{ it.score }
                 .sum()
     }
 
-    private fun getThrowScore(scorecard: String): Int {
-        return when (scorecard) {
-            "X" -> 10
-            "-" -> 0
-            else -> scorecard.toInt()
+
+
+    private inner class BallThrow(throwScore: String) {
+        var score: Int
+
+        init {
+            score = calculateScore(throwScore)
+        }
+
+        private fun calculateScore(scorecard: String): Int {
+            return when (scorecard) {
+                "X" -> 10
+                "-" -> 0
+                else -> scorecard.toInt()
+            }
         }
     }
 }

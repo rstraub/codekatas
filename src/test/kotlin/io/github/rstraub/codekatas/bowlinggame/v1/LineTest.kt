@@ -1,6 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class LineTest {
@@ -25,5 +26,11 @@ class LineTest {
         assertThat(line.score).isEqualTo(3)
     }
 
+    @Test
+    @Disabled
+    internal fun `each frame should have a score`() {
+        val line = Line("1,2|1,2")
 
+        assertThat(line.score).isEqualTo(6)
+    }
 }
