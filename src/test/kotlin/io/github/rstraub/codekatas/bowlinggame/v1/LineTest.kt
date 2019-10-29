@@ -14,9 +14,9 @@ class LineTest {
     }
 
     @Test
-    internal fun `a 'X' should count as ten`() {
-        val scoreProvider = Line("X")
+    internal fun `a spare should count as ten plus the score of the first throw in the frame after it`() {
+        line = Line("1,/|1,2")
 
-        assertThat(scoreProvider.score).isEqualTo(10)
+        assertThat(line.score).isEqualTo(14)
     }
 }
