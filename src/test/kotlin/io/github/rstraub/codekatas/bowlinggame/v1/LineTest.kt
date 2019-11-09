@@ -29,9 +29,9 @@ class LineTest {
 
     @Test
     internal fun `a strike counts as the 10 plus the score of the next two throws`() {
-        line = Line("X|1,1")
+        line = Line("X|1,2")
 
-        assertThat(line.score).isEqualTo(14)
+        assertThat(line.score).isEqualTo(16)
     }
 
 //    TODO strike followed by a spare

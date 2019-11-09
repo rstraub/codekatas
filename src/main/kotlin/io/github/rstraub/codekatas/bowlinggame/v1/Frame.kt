@@ -58,7 +58,7 @@ class Frame(frameScore: String) : ScoreProvider {
     }
 
     private fun throwAfterNext(): String? {
-        return "1"
+        return nextFrame?.secondThrow
     }
 
     private fun throwScore(ballThrow: String): Int {
