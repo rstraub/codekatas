@@ -34,5 +34,10 @@ class LineTest {
         assertThat(line.score).isEqualTo(16)
     }
 
-//    TODO strike followed by a spare
+    @Test
+    internal fun `a strike followed by a spare should count as 20`() {
+        line = Line("X|6,/|1,1")
+
+        assertThat(line.score).isEqualTo(33)
+    }
 }
