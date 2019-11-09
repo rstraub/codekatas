@@ -65,7 +65,15 @@ class Frame(frameScore: String) : ScoreProvider {
     }
 
     private fun throwAfterNext(): String? {
-        return nextFrame?.secondThrow
+        return if (isLastFrame()) {
+            thirdThrow
+        } else {
+            return if (nextFrame?.secondThrow != null) {
+                nextFrame!!.secondThrow
+            } else {
+                nextFrame?.nextFrame?.firstThrow
+            }
+        }
     }
 
     private fun throwScore(ballThrow: String): Int {

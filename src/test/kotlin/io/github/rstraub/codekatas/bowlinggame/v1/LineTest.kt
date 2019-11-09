@@ -29,9 +29,9 @@ class LineTest {
 
     @Test
     internal fun `a strike counts as the 10 plus the score of the next two throws`() {
-        line = Line("X|1,2")
+        line = Line("X|X|X|X|X|X|X|X|X|X,X,X")
 
-        assertThat(line.score).isEqualTo(16)
+        assertThat(line.score).isEqualTo(300)
     }
 
     @Test
@@ -39,5 +39,12 @@ class LineTest {
         line = Line("X|6,/|1,1")
 
         assertThat(line.score).isEqualTo(33)
+    }
+
+    @Test
+    internal fun `a strike followed by zeroes count as just the strike`() {
+        line = Line("X|-,-")
+
+        assertThat(line.score).isEqualTo(10)
     }
 }
