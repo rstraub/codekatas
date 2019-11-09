@@ -32,22 +32,35 @@ class Line(scorecard: String) : ScoreProvider {
         private val isSpare: Boolean = ballThrows.contains("/")
 
         val firstThrow = ballThrows[0]
+        val thirdThrow = ballThrows.getOrNull(2)
 
         var nextFrame: Frame? = null
 
         override val score: Int
             get() = if (isSpare) {
-                val nextThrow = nextFrame?.firstThrow
-                var bonusScore = 0
-                if (nextThrow != null) {
-                    bonusScore = throwScore(nextThrow)
-                }
-                10 + bonusScore
+                calculateSpareScore()
             } else {
-                ballThrows
-                        .map(this::throwScore)
-                        .sum()
+                calculatePinScore()
             }
+
+        private fun calculatePinScore(): Int {
+            return ballThrows
+                    .map(this::throwScore)
+                    .sum()
+        }
+
+        private fun calculateSpareScore(): Int {
+            val isLastFrame = nextFrame == null
+
+            val nextThrow = if (isLastFrame) {
+                thirdThrow!!
+            } else {
+                nextFrame!!.firstThrow
+            }
+
+            val bonusScore = throwScore(nextThrow)
+            return 10 + bonusScore
+        }
 
         fun throwScore(ballThrow: String) = when (ballThrow) {
             "-" -> 0

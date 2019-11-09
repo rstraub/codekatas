@@ -14,9 +14,16 @@ class LineTest {
     }
 
     @Test
-    internal fun `a spare should count as ten plus the score of the first throw in the frame after it`() {
-        line = Line("1,/|1,2")
+    internal fun `frames without all pins down should count as the number of pins down`() {
+        line = Line("1,1|1,1|1,1|1,1|1,1|1,1|1,1|1,1|1,1|1,1")
 
-        assertThat(line.score).isEqualTo(14)
+        assertThat(line.score).isEqualTo(20)
+    }
+
+    @Test
+    internal fun `a spare should count as ten plus the score of the first throw in the frame after it`() {
+        line = Line("5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/,5")
+
+        assertThat(line.score).isEqualTo(150)
     }
 }
