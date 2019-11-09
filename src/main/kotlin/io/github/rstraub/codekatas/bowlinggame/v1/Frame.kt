@@ -32,21 +32,24 @@ class Frame(frameScore: String) : ScoreProvider {
     }
 
     private fun calculateSpareScore(): Int {
-        val bonusScore = throwScore(nextThrow())
+        val next = nextThrow(1) ?: ZERO
+        val bonusScore = throwScore(next)
         return 10 + bonusScore
     }
 
-    private fun nextThrow(): String {
+    private fun nextThrow(index: Int): String? {
         return if (isLastFrame()) {
-            thirdThrow!!
+            ballThrows.getOrNull(index + 1)
         } else {
-            nextFrame!!.firstThrow
+            nextFrame?.firstThrow
         }
     }
 
-    private fun throwScore(ballThrow: String) = when (ballThrow) {
-        ZERO -> 0
-        STRIKE -> 10
-        else -> ballThrow.toInt()
+    private fun throwScore(ballThrow: String): Int {
+        return when (ballThrow) {
+            ZERO -> 0
+            STRIKE -> 10
+            else -> ballThrow.toInt()
+        }
     }
 }
