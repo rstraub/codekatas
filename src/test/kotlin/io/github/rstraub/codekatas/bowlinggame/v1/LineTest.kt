@@ -26,4 +26,11 @@ class LineTest {
 
         assertThat(line.score).isEqualTo(150)
     }
+
+    @Test
+    internal fun `a strike counts a ten`() {
+        line = Line("5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/|5,/,X")
+
+        assertThat(line.score).isEqualTo(155)
+    }
 }
