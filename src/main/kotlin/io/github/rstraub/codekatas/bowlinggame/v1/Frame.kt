@@ -10,19 +10,21 @@ class Frame(frameScore: String) : ScoreProvider {
 
     private val ballThrows: List<String> = frameScore.split(BALL_THROW_DELIMITER)
     private val firstThrow = ballThrows[0]
+    private val secondThrow = ballThrows.getOrNull(1)
     private val thirdThrow = ballThrows.getOrNull(2)
+
+    private val isSpare = ballThrows.contains(SPARE)
 
     // TODO set on construction
     var nextFrame: Frame? = null
 
     override val score: Int
-        get() = if (isSpare()) {
+        get() = if (isSpare) {
             calculateSpareScore()
         } else {
             calculatePinScore()
         }
 
-    private fun isSpare() = ballThrows.contains(SPARE)
     private fun isLastFrame() = nextFrame == null
 
     private fun calculatePinScore(): Int {
@@ -32,14 +34,13 @@ class Frame(frameScore: String) : ScoreProvider {
     }
 
     private fun calculateSpareScore(): Int {
-        val next = nextThrow(1) ?: ZERO
-        val bonusScore = throwScore(next)
-        return 10 + bonusScore
+        val next = nextThrow() ?: ZERO
+        return 10 + throwScore(next)
     }
 
-    private fun nextThrow(index: Int): String? {
+    private fun nextThrow(): String? {
         return if (isLastFrame()) {
-            ballThrows.getOrNull(index + 1)
+            thirdThrow
         } else {
             nextFrame?.firstThrow
         }
