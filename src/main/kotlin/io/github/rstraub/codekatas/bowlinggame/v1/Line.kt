@@ -10,7 +10,7 @@ class Line(scorecard: String) : ScoreProvider {
     init {
         val frames = scorecard
                 .split(FRAME_DELIMITER)
-                .map { Frame(it) }
+                .map(::createFrame)
 
         linkFrames(frames)
 
@@ -18,6 +18,8 @@ class Line(scorecard: String) : ScoreProvider {
                 .map(Frame::score)
                 .sum()
     }
+
+    private fun createFrame(frameScore: String) = Frame(frameScore)
 
     private fun linkFrames(frames: List<Frame>) {
         frames.forEachIndexed { index, frame ->
