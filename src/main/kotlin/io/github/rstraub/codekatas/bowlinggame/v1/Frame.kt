@@ -28,18 +28,6 @@ open class Frame(frameScore: String) : ScoreProvider {
             .sum()
     }
 
-    protected fun firstBonusThrow(): String? {
-        return if (isLastFrame()) {
-            return if (isSpare) {
-                thirdThrow
-            } else {
-                secondThrow
-            }
-        } else {
-            nextFrame?.firstThrow
-        }
-    }
-
     protected fun throwScore(ballThrow: String): Int {
         return when (ballThrow) {
             ZERO -> 0
