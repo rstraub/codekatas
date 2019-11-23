@@ -2,7 +2,7 @@ package io.github.rstraub.codekatas.bowlinggame.v1
 
 open class Frame(frameScore: String) : ScoreProvider {
     protected companion object {
-        const val BALL_THROW_DELIMITER = ","
+        private const val BALL_THROW_DELIMITER = ","
         const val SPARE = "/"
         const val ZERO = "-"
         const val STRIKE = "X"
@@ -28,7 +28,7 @@ open class Frame(frameScore: String) : ScoreProvider {
             .sum()
     }
 
-    protected fun nextThrow(): String? {
+    protected fun firstBonusThrow(): String? {
         return if (isLastFrame()) {
             return if (isSpare) {
                 thirdThrow
@@ -40,7 +40,7 @@ open class Frame(frameScore: String) : ScoreProvider {
         }
     }
 
-    protected fun throwAfterNext(): String? {
+    protected fun secondBonusThrow(): String? {
         return if (isLastFrame()) {
             thirdThrow
         } else {

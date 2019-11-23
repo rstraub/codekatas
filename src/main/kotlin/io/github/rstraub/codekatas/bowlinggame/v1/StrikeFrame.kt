@@ -5,8 +5,8 @@ class StrikeFrame(frameScore: String) : Frame(frameScore) {
         val bonus = if (nextFrame is SpareFrame) {
             10
         } else {
-            val next = nextThrow() ?: ZERO
-            val second = throwAfterNext() ?: ZERO
+            val next = firstBonusThrow() ?: ZERO
+            val second = secondBonusThrow() ?: ZERO
             throwScore(next) + throwScore(second)
         }
 
