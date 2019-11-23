@@ -9,9 +9,9 @@ open class Frame(frameScore: String) : ScoreProvider {
     }
 
     private val ballThrows: List<String> = frameScore.split(BALL_THROW_DELIMITER)
-    private val firstThrow = ballThrows[0]
-    private val secondThrow = ballThrows.getOrNull(1)
-    private val thirdThrow = ballThrows.getOrNull(2)
+    val firstThrow = ballThrows[0]
+    val secondThrow = ballThrows.getOrNull(1)
+    val thirdThrow = ballThrows.getOrNull(2)
 
     private val isSpare = ballThrows.contains(SPARE)
 
@@ -20,7 +20,7 @@ open class Frame(frameScore: String) : ScoreProvider {
     override val score: Int
         get() = calculateScore()
 
-    private fun isLastFrame() = nextFrame == null
+    protected fun isLastFrame() = nextFrame == null
 
     protected open fun calculateScore(): Int {
         return ballThrows
@@ -37,18 +37,6 @@ open class Frame(frameScore: String) : ScoreProvider {
             }
         } else {
             nextFrame?.firstThrow
-        }
-    }
-
-    protected fun secondBonusThrow(): String? {
-        return if (isLastFrame()) {
-            thirdThrow
-        } else {
-            return if (nextFrame?.secondThrow != null) {
-                nextFrame!!.secondThrow
-            } else {
-                nextFrame?.nextFrame?.firstThrow
-            }
         }
     }
 

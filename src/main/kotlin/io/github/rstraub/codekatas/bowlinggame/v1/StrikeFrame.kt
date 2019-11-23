@@ -12,4 +12,16 @@ class StrikeFrame(frameScore: String) : Frame(frameScore) {
 
         return throwScore(STRIKE) + bonus
     }
+
+    private fun secondBonusThrow(): String? {
+        return if (isLastFrame()) {
+            thirdThrow
+        } else {
+            return if (nextFrame?.secondThrow != null) {
+                nextFrame!!.secondThrow
+            } else {
+                nextFrame?.nextFrame?.firstThrow
+            }
+        }
+    }
 }
