@@ -9,17 +9,22 @@ class Line(scorecard: String) : ScoreProvider {
 
     init {
         val frames = scorecard
-                .split(FRAME_DELIMITER)
-                .map(::createFrame)
+            .split(FRAME_DELIMITER)
+            .map(::createFrame)
 
         linkFrames(frames)
 
         score = frames
-                .map(Frame::score)
-                .sum()
+            .map(Frame::score)
+            .sum()
     }
 
-    private fun createFrame(frameScore: String) = Frame(frameScore)
+    private fun createFrame(frameScore: String) =
+        when {
+            frameScore.contains("/") -> SpareFrame(frameScore)
+            frameScore.startsWith("X") -> StrikeFrame(frameScore)
+            else -> Frame(frameScore)
+        }
 
     private fun linkFrames(frames: List<Frame>) {
         frames.forEachIndexed { index, frame ->

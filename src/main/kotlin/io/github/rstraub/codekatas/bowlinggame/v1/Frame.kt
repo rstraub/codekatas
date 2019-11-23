@@ -1,6 +1,6 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-class Frame(frameScore: String) : ScoreProvider {
+open class Frame(frameScore: String) : ScoreProvider {
     private companion object {
         private const val BALL_THROW_DELIMITER = ","
         private const val SPARE = "/"
