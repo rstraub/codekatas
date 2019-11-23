@@ -35,6 +35,13 @@ class LineTest {
     }
 
     @Test
+    internal fun `a strike after a spare in the final frame should count as ten bonus points`() {
+        line = Line("-,/,X")
+
+        assertThat(line.score).isEqualTo(20)
+    }
+
+    @Test
     internal fun `a strike counts as the 10 plus the score of the next two throws`() {
         line = Line("X|X|X|X|X|X|X|X|X|X,X,X")
 
