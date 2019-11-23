@@ -1,16 +1,16 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 class StrikeFrame(frameScore: String) : BonusFrame(frameScore) {
-    override fun calculateScore(): Int {
-        val bonus = if (nextFrame is SpareFrame) {
+    override fun calculateScore() = throwScore(STRIKE) + calculateBonus()
+
+    private fun calculateBonus(): Int {
+        return if (nextFrame is SpareFrame) {
             10
         } else {
             val next = firstBonusThrow() ?: ZERO
             val second = secondBonusThrow() ?: ZERO
             throwScore(next) + throwScore(second)
         }
-
-        return throwScore(STRIKE) + bonus
     }
 
     private fun secondBonusThrow(): String? {
