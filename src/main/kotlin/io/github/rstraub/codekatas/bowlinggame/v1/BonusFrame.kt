@@ -1,6 +1,6 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
-abstract class BonusFrame(frameScore: String) : Frame(frameScore) {
+internal abstract class BonusFrame(frameScore: String) : Frame(frameScore) {
     override fun calculateScore() = 10 + calculateBonus()
 
     protected abstract fun calculateBonus(): Int
