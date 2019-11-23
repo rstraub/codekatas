@@ -1,9 +1,7 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 class StrikeFrame(frameScore: String) : BonusFrame(frameScore) {
-    override fun calculateScore() = throwScore(STRIKE) + calculateBonus()
-
-    private fun calculateBonus(): Int {
+    override fun calculateBonus(): Int {
         return if (nextFrame is SpareFrame) {
             10
         } else {
