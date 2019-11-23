@@ -13,8 +13,6 @@ internal open class Frame(frameScore: String) : ScoreProvider {
     val secondThrow = ballThrows.getOrNull(1)
     val thirdThrow = ballThrows.getOrNull(2)
 
-    private val isSpare = ballThrows.contains(SPARE)
-
     var nextFrame: Frame? = null
 
     override val score: Int

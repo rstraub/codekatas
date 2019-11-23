@@ -28,6 +28,13 @@ class LineTest {
     }
 
     @Test
+    internal fun `a spare should not get bonus score if the next throw is zero`() {
+        line = Line("-,/|-,1")
+
+        assertThat(line.score).isEqualTo(11)
+    }
+
+    @Test
     internal fun `a strike counts as the 10 plus the score of the next two throws`() {
         line = Line("X|X|X|X|X|X|X|X|X|X,X,X")
 
