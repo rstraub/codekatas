@@ -21,8 +21,8 @@ class Line(scorecard: String) : ScoreProvider {
 
     private fun createFrame(frameScore: String) =
         when {
-            frameScore.contains("/") -> SpareFrame(frameScore)
-            frameScore.startsWith("X") -> StrikeFrame(frameScore)
+            Frame.isSpare(frameScore) -> SpareFrame(frameScore)
+            Frame.isStrike(frameScore) -> StrikeFrame(frameScore)
             else -> Frame(frameScore)
         }
 

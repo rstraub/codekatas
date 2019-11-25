@@ -1,11 +1,14 @@
 package io.github.rstraub.codekatas.bowlinggame.v1
 
 internal open class Frame(frameScore: String) : ScoreProvider {
-    protected companion object {
+    companion object {
         private const val BALL_THROW_DELIMITER = ","
         const val SPARE = "/"
         const val ZERO = "-"
         const val STRIKE = "X"
+
+        fun isSpare(frameScore: String) = frameScore.contains(SPARE)
+        fun isStrike(frameScore: String) = frameScore.startsWith(STRIKE)
     }
 
     private val ballThrows: List<String> = frameScore.split(BALL_THROW_DELIMITER)
