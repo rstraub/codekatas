@@ -9,30 +9,33 @@ enum class Colors {
     BLACK
 }
 
-class MasterMind(private val secret: Code) {
-    fun evaluate(guess: Code) = Result(amountCorrect(guess), amountMisplaced(guess))
+class MasterMind(secret: Code) {
+    private val secret = secret.pegs
 
-    private fun amountCorrect(guess: Code) =
+    fun evaluate(guess: Code) =
+        Result(amountCorrect(guess.pegs), amountMisplaced(guess.pegs))
+
+    private fun amountCorrect(guess: List<Peg>) =
         correctPegs(guess).size
 
-    private fun correctPegs(guess: Code) =
-        guess.pegs.filterIndexed { index, peg -> peg == secret.pegs[index] }
+    private fun correctPegs(guess: List<Peg>) =
+        guess.filterIndexed { index, peg -> peg == secret[index] }
 
-    private fun amountMisplaced(guess: Code) =
+    private fun amountMisplaced(guess: List<Peg>) =
         misplacedPegs(guess).size
 
-    private fun misplacedPegs(guess: Code) =
+    private fun misplacedPegs(guess: List<Peg>) =
         guessRemainder(guess)
             .filter { it.color in remainingSecretColors(guess) }
 
-    private fun remainingSecretColors(guess: Code) =
+    private fun remainingSecretColors(guess: List<Peg>) =
         secretRemainder(guess).map(Peg::color)
 
-    private fun guessRemainder(guess: Code) =
-        guess.pegs - correctPegs(guess)
+    private fun guessRemainder(guess: List<Peg>) =
+        guess - correctPegs(guess)
 
-    private fun secretRemainder(guess: Code) =
-        secret.pegs - correctPegs(guess)
+    private fun secretRemainder(guess: List<Peg>) =
+        secret - correctPegs(guess)
 }
 
 data class Code(val pegs: List<Peg>) {
