@@ -9,9 +9,8 @@ enum class Colors {
     BLACK
 }
 
-class MasterMind(vararg secret: Colors) {
-    private val secret = secret
-        .toList()
+class MasterMind(secret: Code) {
+    private val secret = secret.colors
         .mapIndexed(::Peg)
 
     fun evaluate(guess: Code): Result {

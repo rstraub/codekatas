@@ -9,41 +9,43 @@ internal class MasterMindTest {
     internal fun `should give back 0 correct when all are wrong`() =
         assertGuessResult(
             Result(0, 0),
-            MasterMind(RED, RED, RED, RED),
-            Code(BLUE, BLUE, BLUE, BLUE)
+            secret = Code(RED, RED, RED, RED),
+            guess = Code(BLUE, BLUE, BLUE, BLUE)
         )
 
     @Test
     internal fun `should give back 4 correct when all are correct`() =
         assertGuessResult(
             Result(4, 0),
-            MasterMind(RED, RED, RED, RED),
-            Code(RED, RED, RED, RED)
+            secret = Code(RED, RED, RED, RED),
+            guess = Code(RED, RED, RED, RED)
         )
 
     @Test
     internal fun `should give back 2 correct when two colors are correct`() =
         assertGuessResult(
             Result(2, 0),
-            MasterMind(RED, RED, RED, RED),
-            Code(RED, RED, YELLOW, YELLOW)
+            secret = Code(RED, RED, RED, RED),
+            guess = Code(RED, RED, YELLOW, YELLOW)
         )
 
     @Test
     internal fun `should give back 1 in wrong place when there is a single misplaced peg`() =
         assertGuessResult(
             Result(0, 1),
-            MasterMind(YELLOW, RED, BLUE, GREEN),
-            Code(BLACK, BLACK, BLACK, YELLOW)
+            secret = Code(YELLOW, RED, BLUE, GREEN),
+            guess = Code(BLACK, BLACK, BLACK, YELLOW)
         )
 }
 
 private fun assertGuessResult(
     expected: Result,
-    mastermind: MasterMind,
+    secret: Code,
     guess: Code
 ) {
-    val result = mastermind.evaluate(guess)
+    val masterMind = MasterMind(secret)
+
+    val result = masterMind.evaluate(guess)
 
     assertThat(result.correct).isEqualTo(expected.correct)
     assertThat(result.inWrongPlace).isEqualTo(expected.inWrongPlace)
