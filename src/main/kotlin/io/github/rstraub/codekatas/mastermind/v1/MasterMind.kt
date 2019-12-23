@@ -14,8 +14,8 @@ class MasterMind(vararg secret: Colors) {
         .toList()
         .mapIndexed(::Peg)
 
-    fun evaluate(vararg guess: Colors): Result {
-        val guessPegs = guess.mapIndexed(::Peg)
+    fun evaluate(guess: Code): Result {
+        val guessPegs = guess.colors.mapIndexed(::Peg)
 
         return Result(correctPegs(guessPegs), 0)
     }
@@ -27,6 +27,10 @@ class MasterMind(vararg secret: Colors) {
             else
                 correct
         }
+}
+
+data class Code(val colors: List<Colors>) {
+    constructor(vararg colors: Colors) : this(colors.toList())
 }
 
 data class Peg(val index: Int, val color: Colors)

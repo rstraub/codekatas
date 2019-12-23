@@ -10,7 +10,7 @@ internal class MasterMindTest {
         assertGuessResult(
             Result(0, 0),
             MasterMind(RED, RED, RED, RED),
-            BLUE, BLUE, BLUE, BLUE
+            Code(BLUE, BLUE, BLUE, BLUE)
         )
 
     @Test
@@ -18,7 +18,7 @@ internal class MasterMindTest {
         assertGuessResult(
             Result(4, 0),
             MasterMind(RED, RED, RED, RED),
-            RED, RED, RED, RED
+            Code(RED, RED, RED, RED)
         )
 
     @Test
@@ -26,7 +26,7 @@ internal class MasterMindTest {
         assertGuessResult(
             Result(2, 0),
             MasterMind(RED, RED, RED, RED),
-            RED, RED, YELLOW, YELLOW
+            Code(RED, RED, YELLOW, YELLOW)
         )
 
     @Test
@@ -34,16 +34,16 @@ internal class MasterMindTest {
         assertGuessResult(
             Result(0, 1),
             MasterMind(YELLOW, RED, BLUE, GREEN),
-            BLACK, BLACK, BLACK, YELLOW
+            Code(BLACK, BLACK, BLACK, YELLOW)
         )
 }
 
 private fun assertGuessResult(
     expected: Result,
     mastermind: MasterMind,
-    vararg guess: Colors
+    guess: Code
 ) {
-    val result = mastermind.evaluate(*guess)
+    val result = mastermind.evaluate(guess)
 
     assertThat(result.correct).isEqualTo(expected.correct)
     assertThat(result.inWrongPlace).isEqualTo(expected.inWrongPlace)
