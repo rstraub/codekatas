@@ -18,31 +18,25 @@ class MasterMind(private val secret: Code) {
     private fun correctPegs(guess: Code) =
         guess.pegs.filterIndexed { index, peg -> peg == secret.pegs[index] }
 
-    private fun amountMisplaced(
-        guess: Code
-    ): Int {
-        val secretColors = secretRemainder(guess).asColors()
-        return guessRemainder(guess)
-            .asColors()
-            .fold(0) { acc, color ->
-                if (color in secretColors)
-                    acc + 1
-                else
-                    acc
-            }
-    }
+    private fun amountMisplaced(guess: Code) =
+        misplacedPegs(guess).size
+
+    private fun misplacedPegs(guess: Code) =
+        guessRemainder(guess)
+            .filter { it.color in remainingSecretColors(guess) }
+
+    private fun remainingSecretColors(guess: Code) =
+        secretRemainder(guess).map(Peg::color)
 
     private fun guessRemainder(guess: Code) =
-        Code(guess.pegs - correctPegs(guess))
+        guess.pegs - correctPegs(guess)
 
     private fun secretRemainder(guess: Code) =
-        Code(secret.pegs - correctPegs(guess))
+        secret.pegs - correctPegs(guess)
 }
 
 data class Code(val pegs: List<Peg>) {
     constructor(vararg colors: Colors) : this(colors.toList().mapIndexed(::Peg))
-
-    fun asColors() = pegs.map(Peg::color)
 }
 
 data class Peg(val index: Int, val color: Colors)
