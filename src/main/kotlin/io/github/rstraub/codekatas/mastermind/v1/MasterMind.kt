@@ -9,8 +9,12 @@ enum class Colors {
     BLACK
 }
 
-class MasterMind(val secret: List<Colors>) {
-    infix fun evaluate(guess: List<Colors>): Result {
+class MasterMind(vararg secret: Colors) {
+    private val secret = secret
+        .toList()
+        .mapIndexed(::Peg)
+
+    fun evaluate(vararg guess: Colors): Result {
         val guessPegs = guess.mapIndexed(::Peg)
 
         return Result(correctPegs(guessPegs), 0)
@@ -18,7 +22,7 @@ class MasterMind(val secret: List<Colors>) {
 
     private fun correctPegs(guess: List<Peg>) =
         guess.foldIndexed(0) { index, correct, peg ->
-            if (secret[index] == peg.color)
+            if (secret[index].color == peg.color)
                 correct + 1
             else
                 correct
