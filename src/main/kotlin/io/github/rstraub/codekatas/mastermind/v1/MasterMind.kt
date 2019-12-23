@@ -10,13 +10,10 @@ enum class Colors {
 }
 
 class MasterMind(secret: Code) {
-    private val secret = secret.colors
-        .mapIndexed(::Peg)
+    private val secret = secret.pegs
 
     fun evaluate(guess: Code): Result {
-        val guessPegs = guess.colors.mapIndexed(::Peg)
-
-        return Result(correctPegs(guessPegs), 0)
+        return Result(correctPegs(guess.pegs), 0)
     }
 
     private fun correctPegs(guess: List<Peg>) =
@@ -28,8 +25,10 @@ class MasterMind(secret: Code) {
         }
 }
 
-data class Code(val colors: List<Colors>) {
+class Code private constructor(colors: List<Colors>) {
     constructor(vararg colors: Colors) : this(colors.toList())
+
+    val pegs = colors.mapIndexed(::Peg)
 }
 
 data class Peg(val index: Int, val color: Colors)

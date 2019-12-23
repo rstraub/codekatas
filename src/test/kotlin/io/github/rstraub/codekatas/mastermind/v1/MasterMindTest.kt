@@ -36,6 +36,11 @@ internal class MasterMindTest {
             secret = Code(YELLOW, RED, BLUE, GREEN),
             guess = Code(BLACK, BLACK, BLACK, YELLOW)
         )
+
+    @Test
+    internal fun `should handle results of different sizes`() {
+        TODO("not implemented")
+    }
 }
 
 private fun assertGuessResult(
