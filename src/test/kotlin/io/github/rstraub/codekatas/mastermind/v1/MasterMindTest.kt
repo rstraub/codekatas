@@ -37,17 +37,17 @@ internal class MasterMindTest {
             guess = Code(RED, RED, BLUE, RED)
         )
     }
-}
 
-private fun assertGuessResult(
-    expected: Result,
-    secret: Code,
-    guess: Code
-) {
-    val masterMind = MasterMind(secret)
+    private fun assertGuessResult(
+        expected: Result,
+        secret: Code,
+        guess: Code
+    ) {
+        val masterMind = MasterMind(secret)
 
-    val result = masterMind evaluate guess
+        val result = masterMind evaluate guess
 
-    assertThat(result.correct).isEqualTo(expected.correct)
-    assertThat(result.misplaced).isEqualTo(expected.misplaced)
+        assertThat(result.correct).isEqualTo(expected.correct)
+        assertThat(result.misplaced).isEqualTo(expected.misplaced)
+    }
 }
