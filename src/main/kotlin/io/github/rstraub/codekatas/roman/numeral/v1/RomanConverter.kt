@@ -11,15 +11,15 @@ class RomanConverter {
         1 to "I"
     )
 
-    fun convert(number: Int): String {
-        var remainder = number
-        var result = ""
-        numberToRoman.forEach {
-            while (remainder / it.key >= 1) {
-                remainder -= it.key
-                result += it.value
-            }
-        }
-        return result
-    }
+    fun convert(number: Int): String =
+        if (number == 0) ""
+        else
+            highestNumeral(number) + convert(number - highestNumber(number))
+
+    private fun highestNumber(number: Int) = highestEntry(number).key
+
+    private fun highestNumeral(number: Int) = highestEntry(number).value
+
+    private fun highestEntry(number: Int) =
+        numberToRoman.entries.first { number / it.key >= 1 }
 }

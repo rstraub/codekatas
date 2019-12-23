@@ -17,10 +17,6 @@ internal class RomanConverterTest {
         assertConversion(10, "X")
 
     @Test
-    internal fun `should convert twenty to XX`() =
-        assertConversion(20, "XX")
-
-    @Test
     internal fun `should convert 36 to XXXVI`() =
         assertConversion(36, "XXXVI")
 
@@ -35,6 +31,10 @@ internal class RomanConverterTest {
     @Test
     internal fun `should convert 49 to XLIX`() =
         assertConversion(49, "XLIX")
+
+    @Test
+    internal fun `should convert 0 to empty string`() =
+        assertConversion(0, "")
 
     private fun assertConversion(number: Int, roman: String) {
         val result = RomanConverter().convert(number)
