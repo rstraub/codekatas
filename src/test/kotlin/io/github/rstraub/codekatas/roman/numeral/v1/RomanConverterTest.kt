@@ -5,14 +5,23 @@ import org.junit.jupiter.api.Test
 
 internal class RomanConverterTest {
     @Test
-    internal fun `should convert a one to I`() {
-        val result = RomanConverter().convert(1)
-        assertThat(result).isEqualTo("I")
-    }
+    internal fun `should convert a one to I`() =
+        assertConversion(1, "I")
 
     @Test
-    internal fun `should convert a five to V`() {
-        val result = RomanConverter().convert(5)
-        assertThat(result).isEqualTo("V")
+    internal fun `should convert a five to V`() =
+        assertConversion(5, "V")
+
+    @Test
+    internal fun `should convert ten to X`() =
+        assertConversion(10, "X")
+
+    @Test
+    internal fun `should convert twenty to XX`() =
+        assertConversion(20, "XX")
+
+    private fun assertConversion(number: Int, roman: String) {
+        val result = RomanConverter().convert(number)
+        assertThat(result).isEqualTo(roman)
     }
 }
