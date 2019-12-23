@@ -7,16 +7,16 @@ enum class Colors {
 }
 
 class MasterMind(val secret: List<Colors>) {
-    infix fun compare(guess: List<Colors>): Result {
-        var correct = 0
+    infix fun compare(guess: List<Colors>) =
+        Result(numberOfCorrectPegs(guess), 0)
 
-        guess.forEachIndexed { index, color ->
+    private fun numberOfCorrectPegs(guess: List<Colors>) =
+        guess.foldIndexed(0) { index, correct, color ->
             if (secret[index] == color)
-                correct++
+                correct + 1
+            else
+                correct
         }
-
-        return Result(correct, 0)
-    }
 }
 
 data class Result(val correct: Int, val inWrongPlace: Int)
