@@ -3,11 +3,14 @@ package io.github.rstraub.codekatas.mastermind.v1
 enum class Colors {
     RED,
     BLUE,
-    YELLOW
+    YELLOW,
+    GREEN,
+    PURPLE,
+    BLACK
 }
 
 class MasterMind(val secret: List<Colors>) {
-    infix fun compare(guess: List<Colors>) =
+    infix fun evaluate(guess: List<Colors>) =
         Result(numberOfCorrectPegs(guess), 0)
 
     private fun numberOfCorrectPegs(guess: List<Colors>) =

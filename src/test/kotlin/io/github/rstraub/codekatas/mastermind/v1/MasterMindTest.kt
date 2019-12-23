@@ -10,7 +10,7 @@ internal class MasterMindTest {
         val mastermind = MasterMind(listOf(RED, RED, RED, RED))
         val guess = listOf(BLUE, BLUE, BLUE, BLUE)
 
-        val result = mastermind compare guess
+        val result = mastermind evaluate guess
 
         assertThat(result.correct).isEqualTo(0)
         assertThat(result.inWrongPlace).isEqualTo(0)
@@ -21,7 +21,7 @@ internal class MasterMindTest {
         val mastermind = MasterMind(listOf(RED, RED, RED, RED))
         val guess = listOf(RED, RED, RED, RED)
 
-        val result = mastermind compare guess
+        val result = mastermind evaluate guess
 
         assertThat(result.correct).isEqualTo(4)
         assertThat(result.inWrongPlace).isEqualTo(0)
@@ -32,9 +32,20 @@ internal class MasterMindTest {
         val mastermind = MasterMind(listOf(RED, RED, RED, RED))
         val guess = listOf(RED, RED, YELLOW, YELLOW)
 
-        val result = mastermind compare guess
+        val result = mastermind evaluate guess
 
         assertThat(result.correct).isEqualTo(2)
         assertThat(result.inWrongPlace).isEqualTo(0)
+    }
+
+    @Test
+    internal fun `should give back 1 in wrong place when there is a single misplaced peg`() {
+        val mastermind = MasterMind(listOf(YELLOW, RED, BLUE, GREEN))
+        val guess = listOf(BLACK, BLACK, BLACK, YELLOW)
+
+        val result = mastermind evaluate guess
+
+        assertThat(result.correct).isEqualTo(0)
+        assertThat(result.inWrongPlace).isEqualTo(1)
     }
 }
