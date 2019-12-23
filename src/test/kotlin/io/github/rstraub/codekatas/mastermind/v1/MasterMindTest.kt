@@ -46,7 +46,7 @@ private fun assertGuessResult(
 ) {
     val masterMind = MasterMind(secret)
 
-    val result = masterMind.evaluate(guess)
+    val result = masterMind evaluate guess
 
     assertThat(result.correct).isEqualTo(expected.correct)
     assertThat(result.misplaced).isEqualTo(expected.misplaced)

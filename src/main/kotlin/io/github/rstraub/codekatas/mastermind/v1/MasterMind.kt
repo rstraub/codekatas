@@ -12,7 +12,7 @@ enum class Colors {
 class MasterMind(secret: Code) {
     private val secret = secret.pegs
 
-    fun evaluate(guess: Code) =
+    infix fun evaluate(guess: Code) =
         Result(amountCorrect(guess.pegs), amountMisplaced(guess.pegs))
 
     private fun amountCorrect(guess: List<Peg>) =
