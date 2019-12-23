@@ -13,15 +13,14 @@ class MasterMind(secret: Code) {
     private val secret = secret.pegs
 
     fun evaluate(guess: Code): Result {
-        return Result(correctPegs(guess.pegs), 0)
+        val correctPegs = correctPegs(guess.pegs)
+
+        return Result(correctPegs.size, 0)
     }
 
     private fun correctPegs(guess: List<Peg>) =
-        guess.foldIndexed(0) { index, correct, peg ->
-            if (secret[index].color == peg.color)
-                correct + 1
-            else
-                correct
+        guess.filterIndexed { index, peg ->
+            peg.color == secret[index].color
         }
 }
 
