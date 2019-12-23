@@ -13,19 +13,19 @@ class MasterMind(private val secret: Code) {
     fun evaluate(guess: Code): Result {
         val correctPegs = correctPegs(guess.pegs)
 
-        val guessRemainder = guess.pegs - correctPegs
-        val secretRemainder = secret.pegs - correctPegs
-
-        return Result(correctPegs.size, inWrongPlace(guessRemainder, secretRemainder))
+        return Result(correctPegs.size, inWrongPlace(guessRemainder(guess), secretRemainder(guess)))
     }
 
+    private fun correctPegs(guess: List<Peg>) =
+        guess.filterIndexed { index, peg -> peg == secret.pegs[index] }
+
     private fun inWrongPlace(
-        guessRemainder: List<Peg>,
-        secretRemainder: List<Peg>
+        guessRemainder: Code,
+        secretRemainder: Code
     ): Int {
-        val secretColors = secretRemainder.map(Peg::color)
+        val secretColors = secretRemainder.asColors()
         return guessRemainder
-            .map(Peg::color)
+            .asColors()
             .fold(0) { acc, color ->
                 if (color in secretColors)
                     acc + 1
@@ -34,16 +34,17 @@ class MasterMind(private val secret: Code) {
             }
     }
 
-    private fun correctPegs(guess: List<Peg>) =
-        guess.filterIndexed { index, peg ->
-            peg.color == secret.pegs[index].color
-        }
+    private fun guessRemainder(guess: Code) =
+        Code(guess.pegs - correctPegs(guess.pegs))
+
+    private fun secretRemainder(guess: Code) =
+        Code(secret.pegs - correctPegs(guess.pegs))
 }
 
-class Code private constructor(colors: List<Colors>) {
-    constructor(vararg colors: Colors) : this(colors.toList())
+data class Code(val pegs: List<Peg>) {
+    constructor(vararg colors: Colors) : this(colors.toList().mapIndexed(::Peg))
 
-    val pegs = colors.mapIndexed(::Peg)
+    fun asColors() = pegs.map(Peg::color)
 }
 
 data class Peg(val index: Int, val color: Colors)

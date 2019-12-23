@@ -14,7 +14,7 @@ internal class MasterMindTest {
         )
 
     @Test
-    internal fun `should give back 4 correct when all are correct`() =
+    internal fun `should give back the amount of correct pegs when they are present`() =
         assertGuessResult(
             Result(4, 0),
             secret = Code(RED, RED, RED, RED),
@@ -22,15 +22,7 @@ internal class MasterMindTest {
         )
 
     @Test
-    internal fun `should give back 2 correct when two colors are correct`() =
-        assertGuessResult(
-            Result(2, 0),
-            secret = Code(RED, RED, RED, RED),
-            guess = Code(RED, RED, YELLOW, YELLOW)
-        )
-
-    @Test
-    internal fun `should give back 1 in wrong place when there is a single misplaced peg`() =
+    internal fun `should give back the misplaced pegs when they are present`() =
         assertGuessResult(
             Result(0, 1),
             secret = Code(YELLOW, RED, BLUE, GREEN),
@@ -38,8 +30,12 @@ internal class MasterMindTest {
         )
 
     @Test
-    internal fun `should handle results of different sizes`() {
-        TODO("not implemented")
+    internal fun `should not detect misplaced pegs when they already counted`() {
+        assertGuessResult(
+            Result(2, 0),
+            secret = Code(RED, RED, YELLOW, YELLOW),
+            guess = Code(RED, RED, BLUE, RED)
+        )
     }
 }
 
