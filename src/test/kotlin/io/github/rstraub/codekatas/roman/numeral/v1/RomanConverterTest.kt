@@ -24,6 +24,18 @@ internal class RomanConverterTest {
     internal fun `should convert 36 to XXXVI`() =
         assertConversion(36, "XXXVI")
 
+    @Test
+    internal fun `should convert four to IV`() =
+        assertConversion(4,"IV")
+
+    @Test
+    internal fun `should convert nine to IX`() =
+        assertConversion(9, "IX")
+
+    @Test
+    internal fun `should convert 49 to XLIX`() =
+        assertConversion(49, "XLIX")
+
     private fun assertConversion(number: Int, roman: String) {
         val result = RomanConverter().convert(number)
         assertThat(result).isEqualTo(roman)
