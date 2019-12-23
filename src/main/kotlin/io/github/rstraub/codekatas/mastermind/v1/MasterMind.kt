@@ -9,29 +9,34 @@ enum class Colors {
     BLACK
 }
 
-class MasterMind(secret: Code) {
-    private val secret = secret.pegs
-
+class MasterMind(private val secret: Code) {
     fun evaluate(guess: Code): Result {
         val correctPegs = correctPegs(guess.pegs)
-        val remainder = guess.pegs - correctPegs
 
-        val secretColors = secret.map(Peg::color)
-        val inWrongPlace = remainder
+        val guessRemainder = guess.pegs - correctPegs
+        val secretRemainder = secret.pegs - correctPegs
+
+        return Result(correctPegs.size, inWrongPlace(guessRemainder, secretRemainder))
+    }
+
+    private fun inWrongPlace(
+        guessRemainder: List<Peg>,
+        secretRemainder: List<Peg>
+    ): Int {
+        val secretColors = secretRemainder.map(Peg::color)
+        return guessRemainder
             .map(Peg::color)
             .fold(0) { acc, color ->
-                if(color in secretColors)
+                if (color in secretColors)
                     acc + 1
                 else
                     acc
             }
-
-        return Result(correctPegs.size, inWrongPlace)
     }
 
     private fun correctPegs(guess: List<Peg>) =
         guess.filterIndexed { index, peg ->
-            peg.color == secret[index].color
+            peg.color == secret.pegs[index].color
         }
 }
 
