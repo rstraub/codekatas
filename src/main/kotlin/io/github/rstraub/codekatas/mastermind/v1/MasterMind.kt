@@ -10,21 +10,19 @@ enum class Colors {
 }
 
 class MasterMind(private val secret: Code) {
-    fun evaluate(guess: Code): Result {
-        val correctPegs = correctPegs(guess.pegs)
+    fun evaluate(guess: Code) = Result(amountCorrect(guess), amountMisplaced(guess))
 
-        return Result(correctPegs.size, inWrongPlace(guessRemainder(guess), secretRemainder(guess)))
-    }
+    private fun amountCorrect(guess: Code) =
+        correctPegs(guess).size
 
-    private fun correctPegs(guess: List<Peg>) =
-        guess.filterIndexed { index, peg -> peg == secret.pegs[index] }
+    private fun correctPegs(guess: Code) =
+        guess.pegs.filterIndexed { index, peg -> peg == secret.pegs[index] }
 
-    private fun inWrongPlace(
-        guessRemainder: Code,
-        secretRemainder: Code
+    private fun amountMisplaced(
+        guess: Code
     ): Int {
-        val secretColors = secretRemainder.asColors()
-        return guessRemainder
+        val secretColors = secretRemainder(guess).asColors()
+        return guessRemainder(guess)
             .asColors()
             .fold(0) { acc, color ->
                 if (color in secretColors)
@@ -35,10 +33,10 @@ class MasterMind(private val secret: Code) {
     }
 
     private fun guessRemainder(guess: Code) =
-        Code(guess.pegs - correctPegs(guess.pegs))
+        Code(guess.pegs - correctPegs(guess))
 
     private fun secretRemainder(guess: Code) =
-        Code(secret.pegs - correctPegs(guess.pegs))
+        Code(secret.pegs - correctPegs(guess))
 }
 
 data class Code(val pegs: List<Peg>) {
@@ -49,4 +47,4 @@ data class Code(val pegs: List<Peg>) {
 
 data class Peg(val index: Int, val color: Colors)
 
-data class Result(val correct: Int, val inWrongPlace: Int)
+data class Result(val correct: Int, val misplaced: Int)

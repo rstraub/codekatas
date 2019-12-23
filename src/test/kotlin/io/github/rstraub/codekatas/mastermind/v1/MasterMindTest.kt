@@ -49,5 +49,5 @@ private fun assertGuessResult(
     val result = masterMind.evaluate(guess)
 
     assertThat(result.correct).isEqualTo(expected.correct)
-    assertThat(result.inWrongPlace).isEqualTo(expected.inWrongPlace)
+    assertThat(result.misplaced).isEqualTo(expected.misplaced)
 }
