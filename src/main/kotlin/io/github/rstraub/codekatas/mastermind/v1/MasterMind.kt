@@ -19,7 +19,7 @@ class MasterMind(secret: Code) {
         correctPegs(guess).size
 
     private fun correctPegs(guess: List<Peg>) =
-        guess.filterIndexed { index, peg -> peg == secret[index] }
+        guess.filter { it == secret[it.index] }
 
     private fun amountMisplaced(guess: List<Peg>) =
         misplacedPegs(guess).size
