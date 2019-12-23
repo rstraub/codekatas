@@ -14,8 +14,19 @@ class MasterMind(secret: Code) {
 
     fun evaluate(guess: Code): Result {
         val correctPegs = correctPegs(guess.pegs)
+        val remainder = guess.pegs - correctPegs
 
-        return Result(correctPegs.size, 0)
+        val secretColors = secret.map(Peg::color)
+        val inWrongPlace = remainder
+            .map(Peg::color)
+            .fold(0) { acc, color ->
+                if(color in secretColors)
+                    acc + 1
+                else
+                    acc
+            }
+
+        return Result(correctPegs.size, inWrongPlace)
     }
 
     private fun correctPegs(guess: List<Peg>) =
