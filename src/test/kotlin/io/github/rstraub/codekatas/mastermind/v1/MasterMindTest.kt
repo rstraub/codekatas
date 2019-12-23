@@ -6,46 +6,43 @@ import org.junit.jupiter.api.Test
 
 internal class MasterMindTest {
     @Test
-    internal fun `should give back 0 correct when all are wrong`() {
-        val mastermind = MasterMind(listOf(RED, RED, RED, RED))
-        val guess = listOf(BLUE, BLUE, BLUE, BLUE)
-
-        val result = mastermind evaluate guess
-
-        assertThat(result.correct).isEqualTo(0)
-        assertThat(result.inWrongPlace).isEqualTo(0)
-    }
+    internal fun `should give back 0 correct when all are wrong`() =
+        assertGuessResult(
+            listOf(RED, RED, RED, RED),
+            listOf(BLUE, BLUE, BLUE, BLUE),
+            Result(0, 0)
+        )
 
     @Test
-    internal fun `should give back 4 correct when all are correct`() {
-        val mastermind = MasterMind(listOf(RED, RED, RED, RED))
-        val guess = listOf(RED, RED, RED, RED)
-
-        val result = mastermind evaluate guess
-
-        assertThat(result.correct).isEqualTo(4)
-        assertThat(result.inWrongPlace).isEqualTo(0)
-    }
+    internal fun `should give back 4 correct when all are correct`() =
+        assertGuessResult(
+            listOf(RED, RED, RED, RED),
+            listOf(RED, RED, RED, RED),
+            Result(4, 0)
+        )
 
     @Test
-    internal fun `should give back 2 correct when two colors are correct`() {
-        val mastermind = MasterMind(listOf(RED, RED, RED, RED))
-        val guess = listOf(RED, RED, YELLOW, YELLOW)
-
-        val result = mastermind evaluate guess
-
-        assertThat(result.correct).isEqualTo(2)
-        assertThat(result.inWrongPlace).isEqualTo(0)
-    }
+    internal fun `should give back 2 correct when two colors are correct`() =
+        assertGuessResult(
+            listOf(RED, RED, RED, RED),
+            listOf(RED, RED, YELLOW, YELLOW),
+            Result(2, 0)
+        )
 
     @Test
-    internal fun `should give back 1 in wrong place when there is a single misplaced peg`() {
-        val mastermind = MasterMind(listOf(YELLOW, RED, BLUE, GREEN))
-        val guess = listOf(BLACK, BLACK, BLACK, YELLOW)
+    internal fun `should give back 1 in wrong place when there is a single misplaced peg`() =
+        assertGuessResult(
+            listOf(YELLOW, RED, BLUE, GREEN),
+            listOf(BLACK, BLACK, BLACK, YELLOW),
+            Result(0, 1)
+        )
+}
 
-        val result = mastermind evaluate guess
+private fun assertGuessResult(secret: List<Colors>, guess: List<Colors>, expected: Result) {
+    val mastermind = MasterMind(secret)
 
-        assertThat(result.correct).isEqualTo(0)
-//        assertThat(result.inWrongPlace).isEqualTo(1)
-    }
+    val result = mastermind evaluate guess
+
+    assertThat(result.correct).isEqualTo(expected.correct)
+    assertThat(result.inWrongPlace).isEqualTo(expected.inWrongPlace)
 }
