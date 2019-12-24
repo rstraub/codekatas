@@ -30,11 +30,20 @@ internal class MasterMindTest {
         )
 
     @Test
-    internal fun `should not detect misplaced pegs when they already counted`() {
+    internal fun `should not detect misplaced pegs in the guess when they were already counted as correct ones`() {
         assertGuessResult(
             Result(2, 0),
             secret = Code(RED, RED, YELLOW, YELLOW),
             guess = Code(RED, RED, BLUE, RED)
+        )
+    }
+
+    @Test
+    internal fun `should not count a correct peg in the guess as misplaced as well`() {
+        assertGuessResult(
+            Result(1, 0),
+            secret = Code(RED, RED, YELLOW, YELLOW),
+            guess = Code(RED, BLUE, BLUE, BLUE)
         )
     }
 

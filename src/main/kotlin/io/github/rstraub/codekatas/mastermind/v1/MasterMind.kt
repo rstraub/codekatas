@@ -10,20 +10,23 @@ enum class Colors {
 }
 
 class MasterMind(private val secret: Code) {
-    infix fun evaluate(guess: Code) =
-        Result(amountCorrect(guess), amountMisplaced(guess))
+    infix fun evaluate(guess: Code): Result {
+        return Result(amountCorrect(guess), amountMisplaced(guess))
+    }
 
     private fun amountCorrect(guess: Code) =
-        secret.evaluate(guess).first.size
+        secret.evaluate(guess).correct.size
 
     private fun amountMisplaced(guess: Code) =
-        secret.evaluate(guess).second.size
+        secret.evaluate(guess).misplaced.size
 }
+
+data class Attempt(val correct: List<Peg>, val misplaced: List<Peg>)
 
 data class Code(val pegs: List<Peg>) {
     constructor(vararg colors: Colors) : this(colors.toList().mapIndexed(::Peg))
 
-    fun evaluate(guess: Code) = correctPegs(guess) to misplacedPegs(guess)
+    fun evaluate(guess: Code) = Attempt(correctPegs(guess), misplacedPegs(guess))
 
     private fun correctPegs(guess: Code) =
         guess.pegs.filter { it == pegs[it.index] }
