@@ -1,7 +1,7 @@
 package io.github.rstraub.codekatas.mastermind.v1
 
-data class Code(val pegs: List<Peg>) {
-    constructor(vararg colors: Colors) : this(colors.toList().mapIndexed(::Peg))
+class Code(first: Colors, second: Colors, third: Colors, fourth: Colors) {
+    private val pegs = listOf(first, second, third, fourth).mapIndexed(::Peg)
 
     fun evaluate(guess: Code) =
         Attempt(correctPegs(guess), misplacedPegs(guess))
