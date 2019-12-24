@@ -4,7 +4,7 @@ class Code(first: Colors, second: Colors, third: Colors, fourth: Colors) {
     private val pegs = listOf(first, second, third, fourth).mapIndexed(::Peg)
 
     fun evaluate(guess: Code) =
-        Attempt(correctPegs(guess), misplacedPegs(guess))
+        Attempt(guess, correctPegs(guess), misplacedPegs(guess))
 
     private fun correctPegs(guess: Code) =
         guess.pegs.filter { it == pegs[it.index] }

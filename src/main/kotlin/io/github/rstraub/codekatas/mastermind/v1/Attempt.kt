@@ -1,3 +1,9 @@
 package io.github.rstraub.codekatas.mastermind.v1
 
-data class Attempt(val correct: List<Peg>, val misplaced: List<Peg>)
+class Attempt(guess: Code, correct: List<Peg>, misplaced: List<Peg>) {
+    private val result = Result(correct.size, misplaced.size)
+
+    val amountCorrect = result.correct
+
+    val amountMisplaced = result.misplaced
+}

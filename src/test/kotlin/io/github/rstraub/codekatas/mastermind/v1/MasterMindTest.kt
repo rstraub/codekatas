@@ -56,7 +56,7 @@ internal class MasterMindTest {
 
         val result = masterMind evaluate guess
 
-        assertThat(result.correct).isEqualTo(expected.correct)
-        assertThat(result.misplaced).isEqualTo(expected.misplaced)
+        assertThat(result.amountCorrect).isEqualTo(expected.correct)
+        assertThat(result.amountMisplaced).isEqualTo(expected.misplaced)
     }
 }
